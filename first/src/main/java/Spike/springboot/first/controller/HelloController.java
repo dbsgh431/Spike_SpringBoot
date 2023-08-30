@@ -13,4 +13,10 @@ public class HelloController {
         model.addAttribute("username", "kim");
         return "greetings";
     }
+
+    @GetMapping("/bye")
+    public String bye(Model model) {
+        model.addAttribute("username", "kim");
+        return "goodbye";
+    }
 }
