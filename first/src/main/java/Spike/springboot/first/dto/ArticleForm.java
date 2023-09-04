@@ -1,5 +1,7 @@
 package Spike.springboot.first.dto;
 
+import Spike.springboot.first.entity.Article;
+
 public class ArticleForm {
 
     private String title;
@@ -29,5 +31,9 @@ public class ArticleForm {
     @Override
     public String toString() {
         return "ArticleFrom{" + "title = '" + title +'\'' + "content = '" + content + '\'' + '}';
+    }
+
+    public Article toEntity() {
+        return new Article(null, title, content);
     }
 }
