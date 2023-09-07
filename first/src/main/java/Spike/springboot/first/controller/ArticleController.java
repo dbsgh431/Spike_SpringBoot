@@ -6,21 +6,21 @@ import Spike.springboot.first.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
-    @GetMapping("/article")
-
+    @GetMapping("/articles/new")
     public String newArticleForm() {
         System.out.println("ArticleController.newArticleForm");
         return "articles/new";
     }
 
     @PostMapping("/article/create")
-    public String createArticle(ArticleForm articleForm) {
+    public String createArticle(@ModelAttribute ArticleForm articleForm) {
         System.out.println(articleForm.toString());
         // 1. DTO를 엔티티로 변환
         Article article = articleForm.toEntity();
