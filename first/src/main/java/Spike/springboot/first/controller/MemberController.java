@@ -3,11 +3,14 @@ package Spike.springboot.first.controller;
 import Spike.springboot.first.dto.MemberForm;
 import Spike.springboot.first.entity.Member;
 import Spike.springboot.first.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
+@Slf4j
 @Controller
 public class MemberController {
 
@@ -21,9 +24,11 @@ public class MemberController {
 
     @PostMapping("/members/join")
     public String join(MemberForm memberForm) {
-        System.out.println("MemberController.join");
-        Member savedmember = memberForm.toEntity();
-        memberRepository.save(savedmember);
+       log.info(memberForm.toString());
+        Member member = memberForm.toEntity();
+        log.info(member.toString());
+        Member savedMember = memberRepository.save(member);
+        log.info(savedMember.toString());
         return "members/done";
     }
 }

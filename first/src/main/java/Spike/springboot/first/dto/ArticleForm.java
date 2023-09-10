@@ -1,16 +1,15 @@
 package Spike.springboot.first.dto;
 
 import Spike.springboot.first.entity.Article;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
 
+@AllArgsConstructor
+@ToString
 public class ArticleForm {
 
     private String title;
     private String content;
-
-    public ArticleForm(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
 
     public String getTitle() {
         return title;
@@ -26,11 +25,6 @@ public class ArticleForm {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "ArticleFrom{" + "title = '" + title +'\'' + "content = '" + content + '\'' + '}';
     }
 
     public Article toEntity() {
