@@ -3,12 +3,17 @@ package Spike.springboot.first.controller;
 import Spike.springboot.first.dto.ArticleForm;
 import Spike.springboot.first.entity.Article;
 import Spike.springboot.first.repository.ArticleRepository;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -20,7 +25,7 @@ public class ArticleController {
         return "articles/new";
     }
 
-    @PostMapping("/article/create")
+    @PostMapping("/articles/create")
     public String createArticle(@ModelAttribute ArticleForm articleForm) {
         log.info(articleForm.toString());
 
@@ -31,5 +36,13 @@ public class ArticleController {
         Article savedArticle = articleRepository.save(article);
         log.info(savedArticle.toString());
         return "";
+    }
+
+    @GetMapping("/articles/{id}")
+    public String show(@PathVariable Long id, Model model) {
+        log.info("id = " + id);
+        Article findArticle = articleRepository.findById(id).orElse(null);
+        model.addAttribute("article", findArticle);
+        return "articles/show";
     }
 }
