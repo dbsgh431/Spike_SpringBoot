@@ -6,8 +6,12 @@ import Spike.springboot.first.repository.MemberRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 
 @Slf4j
@@ -30,5 +34,13 @@ public class MemberController {
         Member savedMember = memberRepository.save(member);
         log.info(savedMember.toString());
         return "members/done";
+    }
+
+    @GetMapping("/members/{id}")
+    public String showAll(@PathVariable Long id, Model model) {
+        Member foundMember = memberRepository.findById(id).orElse(null);
+        log.info("id = ", id);
+        model.addAttribute("member", foundMember);
+        return "members/member";
     }
 }
