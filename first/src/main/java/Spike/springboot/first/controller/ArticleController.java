@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -36,14 +35,15 @@ public class ArticleController {
         // 2. 레포지토리로 엔티티를 DB에 저장
         Article savedArticle = articleRepository.save(article);
         log.info(savedArticle.toString());
-        return "";
+        return "redirect:/articles/" +
+                savedArticle.getId();
     }
 
     @GetMapping("/articles/{id}")
     public String show(@PathVariable Long id, Model model) {
         log.info("id = " + id);
-        Article findArticle = articleRepository.findById(id).orElse(null);
-        model.addAttribute("article", findArticle);
+        Article foundArticle = articleRepository.findById(id).orElse(null);
+        model.addAttribute("article", foundArticle);
         return "articles/show";
     }
 
