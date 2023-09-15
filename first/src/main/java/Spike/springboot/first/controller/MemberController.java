@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Optional;
+import java.util.List;
+
 
 
 @Slf4j
@@ -33,14 +34,22 @@ public class MemberController {
         log.info(member.toString());
         Member savedMember = memberRepository.save(member);
         log.info(savedMember.toString());
-        return "members/done";
+        return "redirect:/members";
     }
 
     @GetMapping("/members/{id}")
-    public String showAll(@PathVariable Long id, Model model) {
+    public String showid(@PathVariable Long id, Model model) {
         Member foundMember = memberRepository.findById(id).orElse(null);
         log.info("id = ", id);
         model.addAttribute("member", foundMember);
         return "members/member";
     }
+
+    @GetMapping("/members")
+    public String showAll(Model model) {
+        List<Member> memberList = memberRepository.findAll();
+        model.addAttribute("memberList", memberList);
+        return "members/index";
+    }
+
 }
