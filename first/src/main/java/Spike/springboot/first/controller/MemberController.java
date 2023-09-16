@@ -34,13 +34,13 @@ public class MemberController {
         log.info(member.toString());
         Member savedMember = memberRepository.save(member);
         log.info(savedMember.toString());
-        return "redirect:/members";
+        return "redirect:/members/" + member.getId();
     }
 
     @GetMapping("/members/{id}")
     public String showid(@PathVariable Long id, Model model) {
         Member foundMember = memberRepository.findById(id).orElse(null);
-        log.info("id = ", id);
+        log.info("id = {}", id);
         model.addAttribute("member", foundMember);
         return "members/member";
     }
@@ -49,7 +49,7 @@ public class MemberController {
     public String showAll(Model model) {
         List<Member> memberList = memberRepository.findAll();
         model.addAttribute("memberList", memberList);
-        return "members/index";
+        return "members/memberlist";
     }
 
 }
