@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor // 기본 생성자 추가
 @ToString
-@Getter @Setter
+@Getter
 public class Article {
     @Id
     @GeneratedValue

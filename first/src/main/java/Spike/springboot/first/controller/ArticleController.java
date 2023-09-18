@@ -56,4 +56,13 @@ public class ArticleController {
         // 3. 뷰 페이지 설정하기
         return "articles/index";
     }
+
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        // 1. 수정할 데이터 가져오기
+        Article foundArticle = articleRepository.findById(id).orElse(null);
+        model.addAttribute("article", foundArticle);
+        // 2. 수정 뷰 매핑하기
+        return "articles/edit";
+    }
 }
