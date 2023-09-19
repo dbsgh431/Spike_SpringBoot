@@ -52,4 +52,11 @@ public class MemberController {
         return "members/memberlist";
     }
 
+    @GetMapping("/members/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        Member foundMember = memberRepository.findById(id).orElse(null);
+        model.addAttribute("member", foundMember);
+        return "members/edit";
+    }
+
 }

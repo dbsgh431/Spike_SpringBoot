@@ -1,0 +1,17 @@
+{{>layouts/header}}
+
+{{#member}}
+<form class="container" action="" method="post">
+    <div class="mb-3">
+        <label class="form-label">이메일</label>
+        <input type="email" class="form-control" name="email" value="{{id}}">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">비밀번호</label>
+        <input type="password" class="form-control" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary">수정</button>
+    <a href="/members">목록으로</a>
+</form>
+{{/member}}
+{{>layouts/footer}}
