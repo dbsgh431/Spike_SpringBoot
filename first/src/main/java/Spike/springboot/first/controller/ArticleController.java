@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Slf4j
 @Controller
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
+
     @GetMapping("/articles/new")
     public String newArticleForm() {
         return "articles/new";
@@ -65,4 +67,22 @@ public class ArticleController {
         // 2. 수정 뷰 매핑하기
         return "articles/edit";
     }
+
+    @PostMapping("/articles/update")
+    public String update(ArticleForm form) {
+        log.info(form.toString());
+        // 1. DTO를 엔티티로 변환하기
+        Article article = form.toEntity();
+        // 2. 엔티티를 DB에 저장하기
+        // 2-1. DB에서 기존 데이터 가져오기
+        Article foundArticle = articleRepository.findById(article.getId()).orElse(null);
+        // 2-2. 데이터 갱신하기
+        if (foundArticle != null) {
+            articleRepository.save(article);
+        }
+        // 3. 수정 결과 페이지로 리다이렉트 하기
+        return "redirect:/articles/" +
+                article.getId();
+    }
+
 }
