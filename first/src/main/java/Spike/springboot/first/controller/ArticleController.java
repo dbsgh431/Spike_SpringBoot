@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
 
 @Slf4j
 @Controller
@@ -85,4 +87,14 @@ public class ArticleController {
                 article.getId();
     }
 
+    @GetMapping("/articles/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        Article foundArticle = articleRepository.findById(id).orElse(null);
+        log.info("삭제 요청 = {}", foundArticle.toString());
+        if (foundArticle != null) {
+            articleRepository.delete(foundArticle);
+        }
+
+        return "redirect:/articles";
+    }
 }
