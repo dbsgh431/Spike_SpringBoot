@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 
-
 @Slf4j
 @Controller
 public class MemberController {
@@ -29,7 +28,7 @@ public class MemberController {
 
     @PostMapping("/members/join")
     public String join(MemberForm memberForm) {
-       log.info(memberForm.toString());
+        log.info(memberForm.toString());
         Member member = memberForm.toEntity();
         log.info(member.toString());
         Member savedMember = memberRepository.save(member);
@@ -59,4 +58,15 @@ public class MemberController {
         return "members/edit";
     }
 
+    @PostMapping("/members/edit")
+    public String edit(MemberForm memberForm) {
+        Member member = memberForm.toEntity();
+        Member foundMember = memberRepository.findById(member.getId()).orElse(null);
+        if (foundMember != null) {
+            memberRepository.save(member);
+        }
+        return "redirect:/members/" +
+                member.getId();
+
+    }
 }

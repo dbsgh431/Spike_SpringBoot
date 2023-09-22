@@ -1,10 +1,11 @@
 {{>layouts/header}}
 
 {{#member}}
-<form class="container" action="" method="post">
+<form class="container" action="/members/edit" method="post">
+    <input name="id" type="hidden" value="{{id}}">
     <div class="mb-3">
         <label class="form-label">이메일</label>
-        <input type="email" class="form-control" name="email" value="{{id}}">
+        <input type="email" class="form-control" name="email" value="{{email}}">
     </div>
     <div class="mb-3">
         <label class="form-label">비밀번호</label>
