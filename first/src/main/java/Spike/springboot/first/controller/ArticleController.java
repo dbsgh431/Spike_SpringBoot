@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,11 +89,12 @@ public class ArticleController {
     }
 
     @GetMapping("/articles/{id}/delete")
-    public String delete(@PathVariable Long id) {
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Article foundArticle = articleRepository.findById(id).orElse(null);
         log.info("삭제 요청 = {}", foundArticle.toString());
         if (foundArticle != null) {
             articleRepository.delete(foundArticle);
+            redirectAttributes.addFlashAttribute("msg", "삭제 완료!");
         }
 
         return "redirect:/articles";
