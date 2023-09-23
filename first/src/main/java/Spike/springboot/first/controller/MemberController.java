@@ -67,6 +67,15 @@ public class MemberController {
         }
         return "redirect:/members/" +
                 member.getId();
+    }
 
+    @GetMapping("/members/{id}/delete")
+    public String delete(@PathVariable Long id) {
+        Member foundMember = memberRepository.findById(id).orElse(null);
+        if (foundMember != null) {
+            memberRepository.delete(foundMember);
+        }
+
+        return "redirect:/members";
     }
 }
