@@ -1,9 +1,6 @@
 package Spike.springboot.first.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -13,7 +10,7 @@ import lombok.*;
 @Getter
 public class Article {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동으로 id를 생성
     private Long id;
     @Column
     private String title;
