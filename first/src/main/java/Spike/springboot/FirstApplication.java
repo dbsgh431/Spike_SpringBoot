@@ -1,4 +1,4 @@
-package Spike.springboot.first;
+package Spike.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
