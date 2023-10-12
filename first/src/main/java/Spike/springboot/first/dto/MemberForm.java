@@ -1,12 +1,10 @@
 package Spike.springboot.first.dto;
 
 import Spike.springboot.first.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 @ToString
 public class MemberForm {

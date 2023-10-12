@@ -26,4 +26,12 @@ public class Member {
     private String password;
 
 
+    public void update(Member member) {
+        if (email != null) {
+            this.email = member.getEmail();
+        }
+        if (password != null) {
+            this.password = member.getPassword();
+        }
+    }
 }
