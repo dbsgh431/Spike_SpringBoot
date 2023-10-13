@@ -56,4 +56,17 @@ public class AticleApiController {
         Article save = articleRepository.save(target);
         return ResponseEntity.status(HttpStatus.OK).body(save);
     }
+
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        // 삭제 대상 찾기
+        Article article = articleRepository.findById(id).orElse(null);
+        // 예외 처리
+        if (article == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 id 삭제 요청입니다.");
+        }
+        // 삭제 처리
+        articleRepository.delete(article);
+        return ResponseEntity.status(HttpStatus.OK).body("삭제 성공!");
+    }
 }
