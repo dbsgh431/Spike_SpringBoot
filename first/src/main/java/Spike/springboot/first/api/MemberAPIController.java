@@ -23,8 +23,8 @@ public class MemberAPIController {
     // 더미 데이터 생성
     @PostConstruct
     public void init() {
-        Member tempMember = new Member(1L, "qwer@gmail.com", "1234");
-        memberRepository.save(tempMember);
+        memberRepository.save(new Member(1L, "qwer@gmail.com", "1234"));
+        memberRepository.save(new Member(2L, "qwer22@gmail.com", "1234444"));
     }
 
     @GetMapping("/hello/member")
@@ -68,4 +68,17 @@ public class MemberAPIController {
         return ResponseEntity.status(HttpStatus.OK).body(save);
     }
 
+    //삭제
+    @DeleteMapping("/api/members/{id}")
+    public ResponseEntity<Object> deleteById(@PathVariable Long id, @RequestBody MemberForm form) {
+        Member member = memberRepository.findById(id).orElse(null);
+
+        if (member == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 삭제 요청입니다.");
+        }
+        memberRepository.delete(member);
+        return ResponseEntity.status(HttpStatus.OK).build(); //build == body(null)
+
+
+    }
 }
