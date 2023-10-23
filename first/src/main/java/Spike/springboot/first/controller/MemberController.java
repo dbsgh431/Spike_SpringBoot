@@ -31,9 +31,15 @@ public class MemberController {
     }
 
     @PostMapping("/members/join")
-    public String join(@ModelAttribute MemberForm memberForm) {
-        log.info(memberForm.toString());
-        Member member = memberForm.toEntity();
+    public String join(@Validated @ModelAttribute MemberForm form,BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            log.info("검증 오류!");
+            return "redirect:/members/signup";
+        }
+
+        log.info(form.toString());
+        Member member = form.toEntity();
         log.info(member.toString());
         Member savedMember = memberRepository.save(member);
         log.info(savedMember.toString());
