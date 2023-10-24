@@ -8,8 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -65,5 +68,17 @@ public class ArticleService {
         // 삭제 처리
         articleRepository.delete(article);
         return article;
+    }
+
+    @Transactional
+    public List<Article> createArticles(List<ArticleForm> forms) {
+        // 1. dto 묶을을 엔티티로 변환
+        List<Article> articleList = forms.stream().map(dto -> dto.toEntity()).collect(Collectors.toList());
+        // 2. 엔티티 묶음을 db에 저장
+        articleList.stream().forEach(article -> articleRepository.save(article));
+        // 3. 강제 예외 발생
+        articleRepository.findById(-1L).orElseThrow(() -> new IllegalArgumentException("실패!"));
+
+        return articleList;
     }
 }
