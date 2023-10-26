@@ -4,6 +4,7 @@ package Spike.springboot.first.service;
 import Spike.springboot.first.dto.ArticleForm;
 import Spike.springboot.first.entity.Article;
 import Spike.springboot.first.repository.ArticleRepository;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
