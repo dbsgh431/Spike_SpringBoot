@@ -2,12 +2,13 @@ package Spike.springboot.first.api.service;
 
 import Spike.springboot.first.dto.MemberForm;
 import Spike.springboot.first.entity.Member;
-import jakarta.transaction.Transactional;
+
 
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;

@@ -52,7 +52,7 @@ public class MemberService {
         }
         // 수정 로직
         Member target = memberRepository.findById(id).orElse(null);
-        target.update(member);
+        target.patch(member);
         Member save = memberRepository.save(target);
         return save;
     }

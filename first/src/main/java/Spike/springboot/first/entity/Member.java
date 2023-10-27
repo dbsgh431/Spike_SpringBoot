@@ -26,7 +26,7 @@ public class Member {
     private String password;
 
 
-    public void update(Member member) {
+    public void patch(Member member) {
         if (email != null) {
             this.email = member.getEmail();
         }
