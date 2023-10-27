@@ -20,31 +20,30 @@ import static org.assertj.core.api.Assertions.*;
 class MemberServiceTest {
 
     @Autowired
-    private MemberService memberService;
+    MemberService memberService;
 
     @Test
     @Transactional
     void save() {
 
         //given
-        Long id = 3L;
-        String email = "ccc@gmail.com";
-        String password = "3333";
-        Member saved = memberService.save(new MemberForm(id, email, password));
+        String email = "bbb@naver.com";
+        String password = "3434";
+        MemberForm form = new MemberForm(null, email, password);
+        Member expected = new Member(3L, email, password);
         //when
-        Member target = new Member(id, email, password);
+        Member target = memberService.save(form);
         //then
-        assertThat(saved.getEmail()).isEqualTo(target.getEmail());
+        assertThat(expected.getEmail()).isEqualTo(target.getEmail());
     }
 
     @Test
-    @Transactional
     void findById() {
         //given
-        Long id = 3L;
-        String email = "ccc@gmail.com";
-        String password = "3333";
-        Member saved = memberService.save(new MemberForm(id, email, password));
+        Long id = 2L;
+        String email = "bbb@naver.com";
+        String password = "3434";
+        Member saved = new Member(id, email, password);
         //when
         Member target = memberService.findById(id);
         //then
@@ -55,24 +54,20 @@ class MemberServiceTest {
     @Transactional
     void findAll() {
         //given
-        Long id = 3L;
-        String email = "ccc@gmail.com";
-        String password = "3333";
-        Member saved = memberService.save(new MemberForm(id, email, password));
         //when
         List<Member> target = memberService.findAll();
         //then
-        assertThat(target.size()).isEqualTo(3);
+        assertThat(target.size()).isEqualTo(2);
     }
 
     @Test
     @Transactional
     void update() {
         //given
-        Long id = 3L;
-        String email = "ccc@gmail.com";
-        String password = "3333";
-        Member saved = memberService.save(new MemberForm(id, email, password));
+        Long id = 2L;
+        String email = "bbb@naver.com";
+        String password = "3434";
+        Member saved = new Member(id, email, password);
         //when
         MemberForm updateForm = new MemberForm(id, "fff@gmail.com", "4444");
         Member target = memberService.update(id, updateForm);
@@ -86,10 +81,10 @@ class MemberServiceTest {
     @Transactional
     void delete() {
         //given
-        Long id = 3L;
-        String email = "ccc@gmail.com";
-        String password = "3333";
-        Member saved = memberService.save(new MemberForm(id, email, password));
+        Long id = 2L;
+        String email = "bbb@naver.com";
+        String password = "3434";
+        Member saved = new Member(id, email, password);
 
         //when
         Member deleted = memberService.delete(id);

@@ -32,6 +32,9 @@ public class MemberService {
 
     public Member save(MemberForm form) {
         Member member = form.toEntity();
+        if (member.getId() != null) {
+            return null;
+        }
         return memberRepository.save(member);
     }
 
@@ -44,17 +47,18 @@ public class MemberService {
     }
 
     public Member update(@PathVariable Long id, @RequestBody MemberForm form) {
-        log.info("요청 id={}, 엔티티={}", id, form.toEntity());
         Member member = form.toEntity();
-        if (id != member.getId() || id == null) {
+        log.info("요청 id={}, 엔티티={}", id, form.toEntity());
+        Member target = memberRepository.findById(id).orElse(null);
+        if (id != member.getId() || target == null) {
             log.info("잘못된 요청입니다. id={}, 엔티티={}", id, form.toEntity());
             return null;
         }
         // 수정 로직
-        Member target = memberRepository.findById(id).orElse(null);
+
         target.patch(member);
-        Member save = memberRepository.save(target);
-        return save;
+        Member updated = memberRepository.save(target);
+        return updated;
     }
 
     public Member delete(@PathVariable Long id) {
