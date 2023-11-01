@@ -2,14 +2,14 @@ package Spike.springboot.first.api.service;
 
 
 import Spike.springboot.first.dto.MemberForm;
+import Spike.springboot.first.entity.Comment;
 import Spike.springboot.first.entity.Member;
+import Spike.springboot.first.repository.CommentRepository;
 import Spike.springboot.first.repository.MemberRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +23,18 @@ public class MemberService {
 
     @Autowired
     private final MemberRepository memberRepository;
+    @Autowired
+    private final CommentRepository commentRepository;
 
     @PostConstruct
     public void init() {
-        memberRepository.save(new Member(1L, "aaa@naver.com", "1234"));
-        memberRepository.save(new Member(2L, "bbb@naver.com", "3434"));
+        Member a = memberRepository.save(new Member(1L, "aaa@naver.com", "1234"));
+        Member b = memberRepository.save(new Member(2L, "bbb@naver.com", "3434"));
+
+        commentRepository.save(new Comment(null,"누가바","안녕하세요", a));
+        commentRepository.save(new Comment(null,"벵제마","잘가세요", b));
+        commentRepository.save(new Comment(null,"누가바","잘가요", b));
+        commentRepository.save(new Comment(null,"벵제마","넵", a));
     }
 
     public Member save(MemberForm form) {
