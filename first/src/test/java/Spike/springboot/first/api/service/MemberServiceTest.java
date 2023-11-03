@@ -4,7 +4,7 @@ import Spike.springboot.first.dto.MemberForm;
 import Spike.springboot.first.entity.Member;
 
 
-
+import Spike.springboot.first.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

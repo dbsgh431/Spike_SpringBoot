@@ -1,10 +1,9 @@
 package Spike.springboot.first.api;
 
-import Spike.springboot.first.api.service.MemberService;
+import Spike.springboot.first.service.MemberService;
 import Spike.springboot.first.dto.MemberForm;
 import Spike.springboot.first.entity.Member;
 import Spike.springboot.first.repository.MemberRepository;
-import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

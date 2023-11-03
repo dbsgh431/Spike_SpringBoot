@@ -1,4 +1,4 @@
-package Spike.springboot.first.api.service;
+package Spike.springboot.first.service;
 
 
 import Spike.springboot.first.dto.MemberForm;
