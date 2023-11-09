@@ -13,7 +13,7 @@ import lombok.ToString;
 public class CommentDto {
     private Long id;
     private Long articleId; //댓글 부모(게시글) id
-    private String nickName;
+    private String nickname;
     private String body; // 댓글 내용
 
     public static CommentDto createCommentDto(Comment comment) {
