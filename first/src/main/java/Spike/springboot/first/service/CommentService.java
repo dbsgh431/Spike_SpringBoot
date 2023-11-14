@@ -40,4 +40,11 @@ public class CommentService {
     }
 
 
+    @Transactional
+    public CommentDto update(Long commentId, CommentDto dto) {
+        Comment target = commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("잘못된 게시글 id 요청입니다."));
+        target.update(dto);
+        Comment save = commentRepository.save(target);
+        return CommentDto.createCommentDto(save);
+    }
 }

@@ -36,4 +36,19 @@ public class Comment {
         return new Comment(dto.getId(), dto.getUsername(), dto.getBody(), member);
     }
 
+    public void update(CommentDto dto) {
+
+        if (this.id != dto.getId()) {
+            throw new IllegalArgumentException("유효하지 않은 게시글 id 입니다.");
+        }
+
+        if (dto.getUsername() != null) {
+            this.username = dto.getUsername();
+        }
+
+        if (dto.getBody() != null) {
+            this.body = dto.getBody();
+        }
+
+    }
 }
