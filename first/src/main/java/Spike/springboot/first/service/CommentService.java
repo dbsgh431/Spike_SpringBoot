@@ -65,4 +65,13 @@ public class CommentService {
         return CommentDto.createCommentDto(updated);
 
     }
+
+    public CommentDto remove(Long articleId) {
+        // 댓글 조회 및 예외 처리
+        Comment target = commentRepository.findById(articleId).orElseThrow(() -> new IllegalArgumentException("찾을 수 없는 댓글입니다."));
+        // 댓글 삭제
+        commentRepository.delete(target);
+
+        return CommentDto.createCommentDto(target);
+    }
 }

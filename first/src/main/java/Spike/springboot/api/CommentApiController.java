@@ -42,5 +42,9 @@ public class CommentApiController {
     }
 
     //4. 댓글 삭제
-
+    @DeleteMapping("api/articles/comments/{articleId}")
+    public ResponseEntity<CommentDto> delete(@PathVariable Long articleId) {
+        CommentDto removed = commentService.remove(articleId);
+        return ResponseEntity.status(HttpStatus.OK).body(removed);
+    }
 }
