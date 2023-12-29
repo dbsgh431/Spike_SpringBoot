@@ -1,9 +1,11 @@
 package Spike.springboot.first.controller;
 
 import Spike.springboot.first.dto.ArticleForm;
+import Spike.springboot.first.dto.CommentDto;
 import Spike.springboot.first.entity.Article;
 import Spike.springboot.first.repository.ArticleRepository;
 
+import Spike.springboot.first.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ import java.util.Optional;
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/articles/new")
     public String newArticleForm() {
@@ -46,9 +50,10 @@ public class ArticleController {
 
     @GetMapping("/articles/{id}")
     public String show(@PathVariable Long id, Model model) {
-        log.info("id = " + id);
         Article foundArticle = articleRepository.findById(id).orElse(null);
+        List<CommentDto> commentDtos = commentService.comments(id);
         model.addAttribute("article", foundArticle);
+        model.addAttribute("commentDtos", commentDtos);
         return "articles/show";
     }
 
